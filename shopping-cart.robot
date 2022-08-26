@@ -26,4 +26,6 @@ Shopping Cart
     Should Be Equal    ${product.json()}[product_name]    43 Piece dinner Set
 
     &{CONTENT}=    Create Dictionary    Content-Type=application/json
-    ${product}=    POST On Session    toy_shop    api/v1/order    expected_status=200    headers=&{CONTENT}    json=&{ORDER_TEMPLATE}
+    ${order}=    POST On Session    toy_shop    api/v1/order    expected_status=200    headers=&{CONTENT}    json=&{ORDER_TEMPLATE}
+    Should Be Equal As Strings    ${order.json()}[order_id]    8004359122
+    Should Be Equal As Numbers    ${order.json()}[total_price]    14.95

@@ -1,4 +1,4 @@
-# Step by Step[from shopping-cart to shopping-cart2] Step 6
+# Extract Keywords Step by Step: Step 6
 
 - [Step #1 : แบ่งกลุ่มการทำงาน](./step-by-step-01.md)
 - [Step #2 : สร้าง keyword ของการสร้าง Session](./step-by-step-02.md)

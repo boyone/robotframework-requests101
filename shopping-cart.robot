@@ -1,5 +1,6 @@
 *** Settings ***
 Library    RequestsLibrary
+Library    Collections
 
 *** Variables ***
 &{CART}                 product_id=2    quantity=1
@@ -15,6 +16,15 @@ Library    RequestsLibrary
 ...                     recipient_name=ณัฐญา ชุติบุตร     
 ...                     recipient_phone_number=0970809292
 
+&{CONFIRM_PAYMENT_TEMPLATE}     payment_type=credit    
+...                             type=visa    
+...                             card_number=4719700591590995    
+...                             cvv=752    
+...                             expired_month=7    
+...                             expired_year=20    
+...                             card_name=Karnwat Wongudom    
+...                             total_price=14.95
+
 *** Test Cases ***
 Shopping Cart
     Create Session    toy_shop    https://dminer.in.th 
@@ -29,3 +39,6 @@ Shopping Cart
     ${order}=    POST On Session    toy_shop    api/v1/order    expected_status=200    headers=&{CONTENT}    json=&{ORDER_TEMPLATE}
     Should Be Equal As Strings    ${order.json()}[order_id]    8004359122
     Should Be Equal As Numbers    ${order.json()}[total_price]    14.95
+
+    Set To Dictionary    ${CONFIRM_PAYMENT_TEMPLATE}    order_id=${order.json()}[order_id]
+    Log    ${CONFIRM_PAYMENT_TEMPLATE}

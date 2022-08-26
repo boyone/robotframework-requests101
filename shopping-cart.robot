@@ -40,5 +40,7 @@ Shopping Cart
     Should Be Equal As Strings    ${order.json()}[order_id]    8004359122
     Should Be Equal As Numbers    ${order.json()}[total_price]    14.95
 
+    &{POST_HEADERS}=      Create Dictionary     &{ACCEPT}    &{CONTENT}
     Set To Dictionary    ${CONFIRM_PAYMENT_TEMPLATE}    order_id=${order.json()}[order_id]
-    Log    ${CONFIRM_PAYMENT_TEMPLATE}
+    ${paymentStatus}=    POST On Session    toy_shop    api/v1/confirmPayment    expected_status=200    headers=&{POST_HEADERS}    json=${CONFIRM_PAYMENT_TEMPLATE}
+    Should Be Equal As Strings    ${paymentStatus.json()}[notify_message]    วันเวลาที่ชำระเงิน 1/3/2020 13:30:00 หมายเลขคำสั่งซื้อ 8004359122 คุณสามารถติดตามสินค้าผ่านช่องทาง Kerry หมายเลข 1785261900

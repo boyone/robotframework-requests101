@@ -9,3 +9,4 @@ Shopping Cart
 
     &{ACCEPT}=    Create Dictionary    Accept=application/json
     ${product}=    GET On Session    toy_shop    api/v1/product/2    expected_status=200    headers=&{ACCEPT}
+    Should Be Equal    ${product.json()}[product_name]    43 Piece dinner Set
